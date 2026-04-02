@@ -1,0 +1,1913 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proposta de Parceria — curralzinho x Metanoia</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    @font-face{
+      font-family:"Nortan";
+      src:url("./Nortan-DEMO-BF6928019b31f0e.otf") format("opentype");
+      font-weight:normal;
+      font-style:normal;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      -webkit-font-smoothing:antialiased;
+      scroll-behavior:smooth;
+      cursor:none !important;
+    }
+
+    :root{
+      --bg:#0b0f1a;
+      --bg-2:#0f1524;
+      --card:rgba(255,255,255,0.04);
+      --card-h:rgba(255,255,255,0.07);
+      --border:rgba(255,255,255,0.08);
+      --border-h:rgba(43,111,212,0.45);
+      --azul:#2B6FD4;
+      --ciano:#00B4FF;
+      --text:#dde6ff;
+      --text2:rgba(221,230,255,0.68);
+      --text3:rgba(221,230,255,0.34);
+      --gold:#ffd60a;
+      --bronze:#cd7f32;
+      --silver:#c8c8c8;
+      --nav-h:64px;
+      --shadow:0 14px 50px rgba(0,0,0,.35);
+    }
+
+    html,body{
+      width:100%;
+      min-height:100%;
+      background:var(--bg);
+      color:var(--text);
+      font-family:"Barlow",sans-serif;
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:0;
+      pointer-events:none;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 0%, rgba(43,111,212,0.09) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 100%, rgba(0,180,255,0.05) 0%, transparent 60%);
+    }
+
+    /* custom cursor */
+    .cursor-dot{
+      position:fixed;
+      top:0;
+      left:0;
+      width:18px;
+      height:18px;
+      border-radius:50%;
+      background:rgba(0,180,255,.9);
+      box-shadow:0 0 22px rgba(0,180,255,.45);
+      pointer-events:none;
+      z-index:99999;
+      transform:translate(-50%,-50%) scale(1);
+      transition:transform .14s ease, width .14s ease, height .14s ease, background .2s ease;
+      mix-blend-mode:screen;
+    }
+
+    .cursor-dot.clicking{
+      transform:translate(-50%,-50%) scale(.62);
+    }
+
+    .cursor-ring{
+      position:fixed;
+      top:0;
+      left:0;
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      border:1px solid rgba(0,180,255,.35);
+      pointer-events:none;
+      z-index:99998;
+      transform:translate(-50%,-50%);
+      transition:width .18s ease, height .18s ease, border-color .18s ease, opacity .18s ease;
+      opacity:.9;
+    }
+
+    .cursor-ring.active{
+      width:28px;
+      height:28px;
+      border-color:rgba(255,255,255,.45);
+    }
+
+    @media (max-width: 900px){
+      .cursor-dot,
+      .cursor-ring{
+        display:none;
+      }
+      *{
+        cursor:auto !important;
+      }
+    }
+
+    .grid-bg{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        linear-gradient(rgba(43,111,212,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(43,111,212,0.05) 1px, transparent 1px);
+      background-size:54px 54px;
+      mask-image:radial-gradient(ellipse 70% 70% at 50% 50%, black 45%, transparent 100%);
+      -webkit-mask-image:radial-gradient(ellipse 70% 70% at 50% 50%, black 45%, transparent 100%);
+    }
+
+    .container{
+      width:min(1120px, calc(100% - 40px));
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+    }
+
+    #splash{
+      position:fixed;
+      inset:0;
+      z-index:9999;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      background:var(--bg);
+      transition:opacity .7s ease, visibility .7s ease;
+    }
+
+    #splash.out{
+      opacity:0;
+      visibility:hidden;
+    }
+
+    .sp-glow{
+      position:absolute;
+      width:520px;
+      height:520px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(43,111,212,0.14) 0%, transparent 65%);
+      animation:glowPulse 3.2s ease-in-out infinite;
+    }
+
+    @keyframes glowPulse{
+      0%,100%{transform:scale(1)}
+      50%{transform:scale(1.08)}
+    }
+
+    .sp-logo{
+      width:110px;
+      height:110px;
+      object-fit:contain;
+      border-radius:24px;
+      position:relative;
+      z-index:2;
+      opacity:0;
+      transform:scale(.7);
+      animation:logoIn .85s cubic-bezier(.2,.9,.2,1) .2s forwards;
+      filter:drop-shadow(0 0 26px rgba(0,180,255,.25));
+    }
+
+    @keyframes logoIn{
+      to{
+        opacity:1;
+        transform:scale(1);
+      }
+    }
+
+    .sp-name{
+      margin-top:16px;
+      font-family:"Nortan","Rajdhani",sans-serif;
+      font-size:24px;
+      letter-spacing:1px;
+      text-transform:lowercase;
+      position:relative;
+      z-index:2;
+      opacity:0;
+      transform:translateY(10px);
+      animation:fadeUp .5s ease .8s forwards;
+    }
+
+    .sp-name .curral-white{color:#fff}
+    .sp-name .curral-blue{color:var(--azul)}
+    .sp-name em{
+      color:var(--ciano);
+      font-style:normal;
+      font-family:"Rajdhani",sans-serif;
+      text-transform:none;
+    }
+
+    .sp-sub{
+      margin-top:6px;
+      position:relative;
+      z-index:2;
+      opacity:0;
+      transform:translateY(10px);
+      animation:fadeUp .5s ease 1s forwards;
+      font-size:11px;
+      letter-spacing:3px;
+      color:var(--text3);
+      text-transform:uppercase;
+      font-family:"Rajdhani",sans-serif;
+    }
+
+    .sp-loader{
+      width:210px;
+      margin-top:34px;
+      position:relative;
+      z-index:2;
+      opacity:0;
+      transform:translateY(10px);
+      animation:fadeUp .5s ease 1.15s forwards;
+    }
+
+    .sp-bar-bg{
+      width:100%;
+      height:3px;
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      overflow:hidden;
+    }
+
+    .sp-bar{
+      width:0%;
+      height:100%;
+      background:linear-gradient(90deg, var(--azul), var(--ciano));
+      box-shadow:0 0 15px rgba(0,180,255,.5);
+      transition:width .08s linear;
+    }
+
+    .sp-msg{
+      margin-top:10px;
+      font-size:10px;
+      letter-spacing:2px;
+      color:var(--text3);
+      text-transform:uppercase;
+      font-family:"Rajdhani",sans-serif;
+      text-align:center;
+    }
+
+    @keyframes fadeUp{
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    #site{
+      display:none;
+      opacity:0;
+      transition:opacity .8s ease;
+      position:relative;
+      z-index:1;
+      padding-top:var(--nav-h);
+    }
+
+    #site.on{
+      opacity:1;
+    }
+
+    nav{
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      height:var(--nav-h);
+      z-index:100;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(8,12,22,0.72);
+      backdrop-filter:blur(18px) saturate(1.3);
+      -webkit-backdrop-filter:blur(18px) saturate(1.3);
+      border-bottom:1px solid rgba(43,111,212,0.18);
+      box-shadow:0 8px 34px rgba(0,0,0,.25);
+      transition:background .2s ease, border-color .2s ease;
+    }
+
+    .nav-wrap{
+      width:min(1180px, calc(100% - 40px));
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+    }
+
+    .nav-brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      text-decoration:none;
+      color:#fff;
+      flex-shrink:0;
+    }
+
+    .nav-brand img{
+      width:30px;
+      height:30px;
+      object-fit:contain;
+      filter:drop-shadow(0 0 10px rgba(0,180,255,.35));
+    }
+
+    .nav-brand span{
+      font-family:"Nortan","Rajdhani",sans-serif;
+      font-size:20px;
+      letter-spacing:.2px;
+      text-transform:lowercase;
+    }
+
+    .nav-brand .curral-white{color:#fff}
+    .nav-brand .curral-blue{color:var(--azul)}
+
+    .nav-center{
+      font-family:"Rajdhani",sans-serif;
+      font-size:11px;
+      letter-spacing:2.4px;
+      color:var(--text3);
+      text-transform:uppercase;
+      text-align:center;
+      flex:1;
+    }
+
+    .nav-center span{
+      color:rgba(0,180,255,.75);
+    }
+
+    .nav-badge{
+      font-family:"Rajdhani",sans-serif;
+      font-size:10px;
+      font-weight:700;
+      letter-spacing:1.7px;
+      text-transform:uppercase;
+      color:rgba(0,180,255,.85);
+      background:rgba(43,111,212,.16);
+      border:1px solid rgba(43,111,212,.35);
+      padding:5px 10px;
+      border-radius:999px;
+    }
+
+    .hero{
+      min-height:calc(100vh - var(--nav-h));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+      padding:70px 0 50px;
+    }
+
+    .hero-glow{
+      position:absolute;
+      width:760px;
+      height:760px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(43,111,212,.10) 0%, transparent 64%);
+      top:50%;
+      left:50%;
+      transform:translate(-50%, -50%);
+      pointer-events:none;
+      transition:transform .15s linear;
+    }
+
+    .hero-inner{
+      position:relative;
+      z-index:2;
+      max-width:900px;
+      margin:0 auto;
+    }
+
+    .hero-eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:7px 16px;
+      border-radius:999px;
+      border:1px solid rgba(0,180,255,.15);
+      background:rgba(0,180,255,.06);
+      color:rgba(0,180,255,.82);
+      font-family:"Rajdhani",sans-serif;
+      font-size:11px;
+      font-weight:700;
+      letter-spacing:3px;
+      text-transform:uppercase;
+      margin-bottom:24px;
+    }
+
+    .hero-logos{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:18px;
+      margin-bottom:28px;
+      flex-wrap:wrap;
+    }
+
+    .hero-logo-wrap{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:10px;
+      min-width:110px;
+      animation:floatSoft 5s ease-in-out infinite;
+    }
+
+    .hero-logo-wrap:nth-child(3){
+      animation-delay:.6s;
+    }
+
+    @keyframes floatSoft{
+      0%,100%{transform:translateY(0px)}
+      50%{transform:translateY(-7px)}
+    }
+
+    .hero-logo-img{
+      width:84px;
+      height:84px;
+      object-fit:contain;
+      border-radius:18px;
+      padding:10px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:0 0 0 1px rgba(255,255,255,.02) inset, 0 10px 40px rgba(0,0,0,.28);
+    }
+
+    .hero-logo-name{
+      font-family:"Rajdhani",sans-serif;
+      font-size:15px;
+      letter-spacing:1px;
+      text-transform:none;
+      color:rgba(255,255,255,.78);
+    }
+
+    .hero-logo-name.curral-wordmark{
+      font-family:"Nortan","Rajdhani",sans-serif;
+      font-size:16px;
+      letter-spacing:.2px;
+      text-transform:lowercase;
+    }
+
+    .hero-logo-name .curral-white{color:#fff}
+    .hero-logo-name .curral-blue{color:var(--azul)}
+
+    .hero-x{
+      font-family:"Rajdhani",sans-serif;
+      font-size:30px;
+      font-weight:700;
+      color:var(--text3);
+      margin:0 4px;
+    }
+
+    .hero-title{
+      font-family:"Rajdhani",sans-serif;
+      font-size:clamp(38px, 6vw, 68px);
+      line-height:1.02;
+      font-weight:700;
+      color:#fff;
+      margin-bottom:16px;
+      letter-spacing:-1px;
+    }
+
+    .hero-title em{
+      color:var(--ciano);
+      font-style:normal;
+    }
+
+    .hero-desc{
+      max-width:690px;
+      margin:0 auto 34px;
+      font-size:15px;
+      line-height:1.8;
+      color:var(--text2);
+    }
+
+    .hero-cta{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .btn-primary,
+    .btn-secondary{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      text-decoration:none;
+      border-radius:10px;
+      padding:13px 24px;
+      font-family:"Rajdhani",sans-serif;
+      font-size:13px;
+      font-weight:700;
+      letter-spacing:1.8px;
+      text-transform:uppercase;
+      transition:.22s ease;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg, var(--azul), rgba(0,180,255,.9));
+      color:#fff;
+      border:0;
+      box-shadow:0 10px 30px rgba(43,111,212,.32);
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-2px);
+      box-shadow:0 16px 36px rgba(43,111,212,.38);
+    }
+
+    .btn-secondary{
+      border:1px solid rgba(43,111,212,.35);
+      color:rgba(0,180,255,.85);
+      background:rgba(43,111,212,.06);
+    }
+
+    .btn-secondary:hover{
+      transform:translateY(-2px);
+      color:#fff;
+      border-color:rgba(0,180,255,.4);
+      background:rgba(43,111,212,.12);
+    }
+
+    .hero-divider{
+      margin:54px auto 0;
+      width:min(720px, 100%);
+      display:flex;
+      align-items:center;
+      gap:16px;
+    }
+
+    .hero-divider-line{
+      flex:1;
+      height:1px;
+      background:var(--border);
+    }
+
+    .hero-divider-text{
+      font-family:"Rajdhani",sans-serif;
+      font-size:10px;
+      letter-spacing:3px;
+      text-transform:uppercase;
+      color:var(--text3);
+    }
+
+    .section{
+      position:relative;
+      z-index:1;
+      padding:84px 0;
+    }
+
+    .section:nth-of-type(even){
+      background:rgba(255,255,255,.012);
+    }
+
+    .section-head{
+      margin-bottom:34px;
+    }
+
+    .section-eye{
+      font-family:"Rajdhani",sans-serif;
+      font-size:10px;
+      letter-spacing:3px;
+      text-transform:uppercase;
+      color:rgba(0,180,255,.58);
+      margin-bottom:10px;
+      font-weight:700;
+    }
+
+    .section-title{
+      font-family:"Rajdhani",sans-serif;
+      font-size:32px;
+      color:#fff;
+      font-weight:700;
+      margin-bottom:10px;
+      line-height:1.05;
+    }
+
+    .section-desc{
+      color:var(--text2);
+      line-height:1.8;
+      max-width:720px;
+      font-size:14px;
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(24px);
+      transition:opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.in{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    .obj-grid,
+    .diff-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:14px;
+    }
+
+    .obj-card,
+    .diff-item,
+    .align-card,
+    .event-card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:22px;
+      transition:.2s ease;
+      box-shadow:0 0 0 1px rgba(255,255,255,.01) inset;
+    }
+
+    .obj-card:hover,
+    .diff-item:hover,
+    .align-card:hover,
+    .event-card:hover{
+      transform:translateY(-3px);
+      border-color:rgba(43,111,212,.35);
+      background:var(--card-h);
+    }
+
+    .obj-card-icon,
+    .diff-bullet,
+    .align-icon{
+      width:40px;
+      height:40px;
+      border-radius:10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-bottom:14px;
+      background:rgba(43,111,212,.12);
+      border:1px solid rgba(43,111,212,.22);
+      color:var(--ciano);
+      font-family:"Rajdhani",sans-serif;
+      font-size:18px;
+      flex-shrink:0;
+    }
+
+    .obj-card-title,
+    .align-title{
+      font-family:"Rajdhani",sans-serif;
+      font-size:16px;
+      font-weight:700;
+      margin-bottom:8px;
+      color:#fff;
+    }
+
+    .obj-card-desc,
+    .diff-text,
+    .align-text{
+      font-size:13px;
+      line-height:1.7;
+      color:var(--text2);
+    }
+
+    .diff-item{
+      display:flex;
+      gap:12px;
+    }
+
+    .diff-bullet{
+      margin-bottom:0;
+    }
+
+    .align-top{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:14px;
+      flex-wrap:wrap;
+      margin:26px 0 34px;
+      text-align:center;
+    }
+
+    .align-name{
+      font-family:"Rajdhani",sans-serif;
+      font-size:22px;
+      font-weight:700;
+      color:#fff;
+      letter-spacing:.5px;
+    }
+
+    .align-name.curral{
+      font-family:"Nortan","Rajdhani",sans-serif;
+      text-transform:lowercase;
+      letter-spacing:.2px;
+    }
+
+    .align-name .curral-white{color:#fff}
+    .align-name .curral-blue{color:var(--azul)}
+
+    .align-x{
+      font-family:"Rajdhani",sans-serif;
+      font-size:26px;
+      color:var(--text3);
+    }
+
+    .align-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+      gap:16px;
+      margin-bottom:18px;
+    }
+
+    .align-practice{
+      margin-top:18px;
+      background:rgba(43,111,212,.06);
+      border:1px solid rgba(43,111,212,.14);
+      border-radius:16px;
+      padding:22px;
+    }
+
+    .align-practice h3{
+      font-family:"Rajdhani",sans-serif;
+      font-size:16px;
+      margin-bottom:12px;
+      color:#fff;
+    }
+
+    .bullet-list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .bullet-item{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      color:var(--text2);
+      font-size:13px;
+      line-height:1.65;
+    }
+
+    .bullet-dot{
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      background:var(--ciano);
+      flex-shrink:0;
+      margin-top:7px;
+      opacity:.75;
+    }
+
+    .proposals{
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+
+    .prop-card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:18px;
+      overflow:hidden;
+      transition:.24s ease;
+      box-shadow:0 0 0 1px rgba(255,255,255,.01) inset;
+    }
+
+    .prop-card:hover{
+      border-color:rgba(43,111,212,.35);
+      transform:translateY(-2px);
+    }
+
+    .prop-header{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      padding:24px 24px;
+      user-select:none;
+    }
+
+    .prop-header[data-clickable="true"]{
+      cursor:none;
+    }
+
+    .prop-tier{
+      width:56px;
+      height:56px;
+      border-radius:14px;
+      flex-shrink:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:24px;
+    }
+
+    .tier-1{background:rgba(205,127,50,.14);border:1px solid rgba(205,127,50,.26)}
+    .tier-2{background:rgba(200,200,200,.10);border:1px solid rgba(200,200,200,.22)}
+    .tier-3{background:rgba(255,214,10,.11);border:1px solid rgba(255,214,10,.22)}
+    .tier-4{background:rgba(0,180,255,.10);border:1px solid rgba(0,180,255,.22)}
+
+    .prop-info{
+      flex:1;
+      min-width:0;
+    }
+
+    .prop-tier-label{
+      font-family:"Nortan","Rajdhani",sans-serif;
+      font-size:12px;
+      letter-spacing:1.2px;
+      text-transform:lowercase;
+      margin-bottom:5px;
+      color:var(--text3);
+    }
+
+    .prop-title{
+      font-family:"Rajdhani",sans-serif;
+      font-size:22px;
+      font-weight:700;
+      color:#fff;
+      margin-bottom:4px;
+      line-height:1;
+    }
+
+    .prop-sub{
+      font-size:13px;
+      color:var(--text2);
+      line-height:1.5;
+    }
+
+    .prop-price{
+      text-align:right;
+      min-width:170px;
+    }
+
+    .prop-price-val{
+      font-family:"Rajdhani",sans-serif;
+      font-size:24px;
+      font-weight:700;
+      color:#fff;
+      line-height:1.1;
+    }
+
+    .prop-price-label{
+      margin-top:4px;
+      font-size:10px;
+      color:var(--text3);
+      letter-spacing:1px;
+      text-transform:uppercase;
+    }
+
+    .prop-chevron{
+      width:18px;
+      height:18px;
+      flex-shrink:0;
+      color:var(--text3);
+      transition:transform .25s ease;
+    }
+
+    .prop-card.open .prop-chevron{
+      transform:rotate(180deg);
+    }
+
+    .prop-body{
+      display:grid;
+      grid-template-rows:0fr;
+      transition:grid-template-rows .35s ease;
+    }
+
+    .prop-card.open .prop-body{
+      grid-template-rows:1fr;
+    }
+
+    .prop-body-inner{
+      overflow:hidden;
+    }
+
+    .prop-content{
+      padding:0 24px 26px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:24px;
+      border-top:1px solid rgba(255,255,255,.06);
+    }
+
+    .prop-col{
+      padding-top:18px;
+    }
+
+    .prop-section-title{
+      font-family:"Rajdhani",sans-serif;
+      font-size:11px;
+      font-weight:700;
+      letter-spacing:1.7px;
+      text-transform:uppercase;
+      color:var(--text3);
+      margin-bottom:12px;
+    }
+
+    .prop-items{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .prop-item{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      color:var(--text2);
+      font-size:13px;
+      line-height:1.65;
+    }
+
+    .prop-item-dot{
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      background:var(--ciano);
+      flex-shrink:0;
+      margin-top:7px;
+      opacity:.75;
+    }
+
+    .prop-examples{
+      background:rgba(43,111,212,.06);
+      border:1px solid rgba(43,111,212,.14);
+      border-radius:12px;
+      padding:15px 16px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .prop-example{
+      display:flex;
+      align-items:flex-start;
+      gap:8px;
+      font-size:12.5px;
+      color:var(--text2);
+      line-height:1.6;
+    }
+
+    .prop-example-icon{
+      color:var(--ciano);
+      font-size:12px;
+      flex-shrink:0;
+      margin-top:1px;
+    }
+
+    .prop-goal{
+      margin-top:16px;
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:12px;
+      background:rgba(0,180,255,.07);
+      border:1px solid rgba(0,180,255,.16);
+      color:rgba(0,180,255,.88);
+      font-size:13px;
+      line-height:1.6;
+    }
+
+    .event-card h3{
+      font-family:"Rajdhani",sans-serif;
+      font-size:24px;
+      color:#fff;
+      margin-bottom:4px;
+    }
+
+    .event-price{
+      font-family:"Rajdhani",sans-serif;
+      font-size:22px;
+      color:var(--ciano);
+      margin-bottom:16px;
+    }
+
+    .contato-box{
+      position:relative;
+      overflow:hidden;
+      border-radius:22px;
+      padding:48px 26px;
+      text-align:center;
+      background:linear-gradient(135deg, rgba(43,111,212,.10) 0%, rgba(0,180,255,.05) 100%);
+      border:1px solid rgba(43,111,212,.22);
+      box-shadow:var(--shadow);
+    }
+
+    .contato-box::before{
+      content:"";
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      height:1px;
+      background:linear-gradient(90deg, transparent, var(--azul), var(--ciano), transparent);
+      opacity:.7;
+    }
+
+    .contato-title{
+      font-family:"Rajdhani",sans-serif;
+      font-size:32px;
+      font-weight:700;
+      color:#fff;
+      margin-bottom:10px;
+    }
+
+    .contato-desc{
+      max-width:570px;
+      margin:0 auto 28px;
+      color:var(--text2);
+      line-height:1.8;
+      font-size:14px;
+    }
+
+    footer{
+      position:relative;
+      z-index:1;
+      border-top:1px solid rgba(255,255,255,.06);
+      padding:26px 0;
+    }
+
+    .footer-wrap{
+      width:min(1120px, calc(100% - 40px));
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .footer-brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .footer-brand img{
+      width:22px;
+      height:22px;
+      object-fit:contain;
+      opacity:.7;
+    }
+
+    .footer-brand-text{
+      font-family:"Nortan","Rajdhani",sans-serif;
+      font-size:14px;
+      text-transform:lowercase;
+      letter-spacing:.2px;
+    }
+
+    .footer-brand-text .curral-white{color:var(--text3)}
+    .footer-brand-text .curral-blue{color:rgba(43,111,212,.85)}
+    .footer-brand-text em{
+      color:rgba(0,180,255,.55);
+      font-style:normal;
+      font-family:"Rajdhani",sans-serif;
+      text-transform:none;
+    }
+
+    .footer-right{
+      color:var(--text3);
+      font-size:11px;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      font-family:"Rajdhani",sans-serif;
+    }
+
+    .float-cta{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      z-index:120;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:14px 16px;
+      border-radius:999px;
+      text-decoration:none;
+      color:#fff;
+      background:linear-gradient(135deg, var(--azul), rgba(0,180,255,.95));
+      box-shadow:0 16px 40px rgba(43,111,212,.35);
+      font-family:"Rajdhani",sans-serif;
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:1.5px;
+      text-transform:uppercase;
+      transition:.2s ease;
+    }
+
+    .float-cta:hover{
+      transform:translateY(-2px) scale(1.02);
+    }
+
+    .float-cta.hide{
+      opacity:0;
+      pointer-events:none;
+      transform:translateY(14px);
+    }
+
+    @media (max-width: 960px){
+      .prop-content{
+        grid-template-columns:1fr;
+      }
+      .nav-center{
+        display:none;
+      }
+    }
+
+    @media (max-width: 720px){
+      .hero{
+        padding:44px 0 30px;
+      }
+      .hero-logo-img{
+        width:74px;
+        height:74px;
+      }
+      .hero-title{
+        font-size:clamp(32px, 11vw, 50px);
+      }
+      .hero-desc{
+        font-size:14px;
+      }
+      .prop-header{
+        flex-wrap:wrap;
+        align-items:flex-start;
+      }
+      .prop-price{
+        width:100%;
+        text-align:left;
+        padding-left:74px;
+        margin-top:-2px;
+      }
+      .prop-chevron{
+        margin-left:auto;
+      }
+      .section{
+        padding:70px 0;
+      }
+      .contato-box{
+        padding:40px 20px;
+      }
+      .contato-title{
+        font-size:28px;
+      }
+    }
+
+    @media (max-width: 520px){
+      .nav-wrap,
+      .container,
+      .footer-wrap{
+        width:calc(100% - 24px);
+      }
+      .hero-logos{
+        gap:12px;
+      }
+      .hero-x{
+        width:100%;
+        margin:4px 0;
+      }
+      .btn-primary,
+      .btn-secondary{
+        width:100%;
+      }
+      .prop-price{
+        padding-left:0;
+      }
+      .prop-header{
+        gap:14px;
+      }
+      .float-cta{
+        right:12px;
+        bottom:12px;
+        padding:13px 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+
+  <div id="splash">
+    <div class="grid-bg"></div>
+    <div class="sp-glow"></div>
+    <img class="sp-logo curral-logo" alt="Logo curralzinho">
+    <div class="sp-name">
+      <span class="curral-white">curral</span><span class="curral-blue">zinho</span> <em>x</em> Metanoia
+    </div>
+    <div class="sp-sub">proposta de parceria estratégica</div>
+
+    <div class="sp-loader">
+      <div class="sp-bar-bg">
+        <div class="sp-bar" id="spBar"></div>
+      </div>
+      <div class="sp-msg" id="spMsg">inicializando proposta</div>
+    </div>
+  </div>
+
+  <div id="site">
+    <nav>
+      <div class="nav-wrap">
+        <a href="#topo" class="nav-brand magnetic">
+          <img class="curral-logo" alt="curralzinho">
+          <span><span class="curral-white">curral</span><span class="curral-blue">zinho</span></span>
+        </a>
+
+        <div class="nav-center">
+          documento comercial <span>· parceria estratégica cs2</span>
+        </div>
+
+        <div class="nav-right">
+          <div class="nav-badge">proposta ativa</div>
+        </div>
+      </div>
+    </nav>
+
+    <section class="hero" id="topo">
+      <div class="grid-bg"></div>
+      <div class="hero-glow" id="heroGlow"></div>
+
+      <div class="container">
+        <div class="hero-inner reveal in">
+          <div class="hero-eyebrow">proposta de parceria competitiva</div>
+
+          <div class="hero-logos">
+            <div class="hero-logo-wrap">
+              <img class="hero-logo-img curral-logo" alt="Logo curralzinho">
+              <div class="hero-logo-name curral-wordmark">
+                <span class="curral-white">curral</span><span class="curral-blue">zinho</span>
+              </div>
+            </div>
+
+            <div class="hero-x">×</div>
+
+            <div class="hero-logo-wrap">
+              <img class="hero-logo-img" src="https://cdn.opticodds.com/team-logos/esports/74164.png" alt="Logo Metanoia">
+              <div class="hero-logo-name">Metanoia</div>
+            </div>
+          </div>
+
+          <h1 class="hero-title">
+            Uma parceria pensada para gerar <em>força competitiva</em>,<br>
+            posicionamento e crescimento real.
+          </h1>
+
+          <p class="hero-desc">
+            A ideia aqui não é só unir duas marcas. É estruturar uma colaboração que aumente presença,
+            percepção de valor, potencial competitivo e oportunidades comerciais para os dois lados
+            dentro do cenário de esports.
+          </p>
+
+          <div class="hero-cta">
+            <a href="#propostas" class="btn-primary magnetic">ver proposta</a>
+            <a href="#contato" class="btn-secondary magnetic">falar sobre a parceria</a>
+          </div>
+
+          <div class="hero-divider">
+            <div class="hero-divider-line"></div>
+            <div class="hero-divider-text">estratégia · comunidade · competitividade</div>
+            <div class="hero-divider-line"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-eye">objetivos da parceria</div>
+          <h2 class="section-title">O que essa colaboração pode construir</h2>
+          <p class="section-desc">
+            O foco da parceria é gerar valor de marca, presença e relacionamento com a comunidade de forma consistente,
+            fazendo com que a conexão entre curralzinho e Metanoia tenha impacto real no cenário e nas pessoas.
+          </p>
+        </div>
+
+        <div class="obj-grid">
+          <div class="obj-card reveal">
+            <div class="obj-card-icon">01</div>
+            <div class="obj-card-title">Fortalecimento de marca</div>
+            <div class="obj-card-desc">
+              Somar percepção, relevância e presença dentro do cenário de CS com uma imagem mais sólida e alinhada.
+            </div>
+          </div>
+
+          <div class="obj-card reveal">
+            <div class="obj-card-icon">02</div>
+            <div class="obj-card-title">Construção de comunidade</div>
+            <div class="obj-card-desc">
+              Criar conexão orgânica entre marca, players, torcedores e criadores, com foco em relacionamento de longo prazo.
+            </div>
+          </div>
+
+          <div class="obj-card reveal">
+            <div class="obj-card-icon">03</div>
+            <div class="obj-card-title">Ativações mais estratégicas</div>
+            <div class="obj-card-desc">
+              Transformar a parceria em ações que tragam engajamento real, narrativa forte e consistência de presença.
+            </div>
+          </div>
+
+          <div class="obj-card reveal">
+            <div class="obj-card-icon">04</div>
+            <div class="obj-card-title">Crescimento conjunto</div>
+            <div class="obj-card-desc">
+              Fazer com que os dois lados cresçam em percepção, relacionamento e valor dentro da comunidade competitiva.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-eye">nosso diferencial</div>
+          <h2 class="section-title">Por que essa parceria faz sentido</h2>
+          <p class="section-desc">
+            A proposta não é apenas operacional ou comercial. O diferencial está em construir algo com consistência,
+            presença de marca, relacionamento com comunidade e ativações que façam sentido dentro do cenário.
+          </p>
+        </div>
+
+        <div class="diff-grid">
+          <div class="diff-item reveal">
+            <div class="diff-bullet">01</div>
+            <div class="diff-text">Foco em comunidade e presença real, e não apenas exposição pontual.</div>
+          </div>
+
+          <div class="diff-item reveal">
+            <div class="diff-bullet">02</div>
+            <div class="diff-text">Capacidade de ativar marca de forma orgânica dentro da rotina da org e da comunidade.</div>
+          </div>
+
+          <div class="diff-item reveal">
+            <div class="diff-bullet">03</div>
+            <div class="diff-text">Espaço para escalar a parceria em níveis diferentes, conforme interesse e profundidade.</div>
+          </div>
+
+          <div class="diff-item reveal">
+            <div class="diff-bullet">04</div>
+            <div class="diff-text">Combinação de branding, comunidade, conteúdo e competitivo em uma mesma proposta.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-eye">🤝 alinhamento de missão, visão e valores</div>
+          <h2 class="section-title">curralzinho 🤝 Metanoia</h2>
+          <p class="section-desc">
+            Garantir que a parceria não seja apenas operacional ou comercial, mas construída sobre uma base sólida de cultura,
+            comunidade e posicionamento de marca.
+          </p>
+        </div>
+
+        <div class="align-top reveal">
+          <div class="align-name curral"><span class="curral-white">curral</span><span class="curral-blue">zinho</span></div>
+          <div class="align-x">🤝</div>
+          <div class="align-name">Metanoia</div>
+        </div>
+
+        <div class="align-grid">
+          <div class="align-card reveal">
+            <div class="align-icon">🎯</div>
+            <div class="align-title">Missão</div>
+            <div class="align-text">
+              Atuar diariamente na construção de uma comunidade ativa, humana e participativa dentro do cenário de CS,
+              onde jogadores, torcedores e criadores se sintam parte real do projeto.
+            </div>
+          </div>
+
+          <div class="align-card reveal">
+            <div class="align-icon">👁</div>
+            <div class="align-title">Visão</div>
+            <div class="align-text">
+              Ser reconhecidos como uma referência em comunidade no cenário competitivo — não apenas pelos resultados,
+              mas pela forma como nos conectamos com as pessoas e desenvolvemos um ambiente saudável e engajado.
+            </div>
+          </div>
+
+          <div class="align-card reveal">
+            <div class="align-icon">💬</div>
+            <div class="align-title">Valores</div>
+            <div class="align-text">
+              Comunidade em primeiro lugar, humanidade e proximidade, transparência, respeito, colaboração e consistência
+              como base de toda decisão e presença no dia a dia.
+            </div>
+          </div>
+        </div>
+
+        <div class="align-practice reveal">
+          <h3>💡 Como isso se traduz na prática</h3>
+          <div class="bullet-list">
+            <div class="bullet-item"><span class="bullet-dot"></span><span>Interação diária com a comunidade, com respostas, conversas e presença real.</span></div>
+            <div class="bullet-item"><span class="bullet-dot"></span><span>Criação de conteúdos que valorizam as pessoas, não só os resultados.</span></div>
+            <div class="bullet-item"><span class="bullet-dot"></span><span>Participação ativa da comunidade em projetos e decisões.</span></div>
+            <div class="bullet-item"><span class="bullet-dot"></span><span>Ambiente aberto para feedback e construção conjunta.</span></div>
+            <div class="bullet-item"><span class="bullet-dot"></span><span>Valorização da identidade e personalidade dos players.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="propostas">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-eye">propostas de parceria</div>
+          <h2 class="section-title">Modelos possíveis de colaboração</h2>
+          <p class="section-desc">
+            Os níveis abaixo permitem comparar formatos diferentes de investimento, presença e ativação.
+            Todos podem ficar abertos ao mesmo tempo para facilitar a comparação.
+          </p>
+        </div>
+
+        <div class="proposals">
+
+          <div class="prop-card reveal open">
+            <div class="prop-header" data-clickable="true">
+              <div class="prop-tier tier-1">🌱</div>
+              <div class="prop-info">
+                <div class="prop-tier-label">tier 1</div>
+                <div class="prop-title">Visibilidade inicial e construção de comunidade de forma orgânica</div>
+                <div class="prop-sub">Entrada estratégica para dar visibilidade inicial e começar a construir comunidade, sempre de forma orgânica.</div>
+              </div>
+              <div class="prop-price">
+                <div class="prop-price-val">R$ 1k / mês</div>
+                <div class="prop-price-label">+ itens para sorteio</div>
+              </div>
+              <svg class="prop-chevron" viewBox="0 0 24 24" fill="none">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+
+            <div class="prop-body">
+              <div class="prop-body-inner">
+                <div class="prop-content">
+                  <div class="prop-col">
+                    <div class="prop-section-title">o que entra</div>
+                    <div class="prop-items">
+                      <div class="prop-item"><span class="prop-item-dot"></span><span>Divulgação inicial da parceria nos canais da curralzinho.</span></div>
+                      <div class="prop-item"><span class="prop-item-dot"></span><span>Participação da org no engajamento de posts da Metanoia.</span></div>
+                      <div class="prop-item"><span class="prop-item-dot"></span><span>Divulgação nos canais internos da curral.</span></div>
+                      <div class="prop-item"><span class="prop-item-dot"></span><span>Mini eventos colaborativos e sorteios para membros da comunidade mais engajados.</span></div>
+                    </div>
+                  </div>
+
+                  <div class="prop-col">
+                    <div class="prop-section-title">objetivo</div>
+                    <div class="prop-examples">
+                      <div class="prop-example"><span class="prop-example-icon">✦</span><span>Dar visibilidade inicial.</span></div>
+                      <div class="prop-example"><span class="prop-example-icon">✦</span><span>Começar a construir comunidade.</span></div>
+                      <div class="prop-example"><span class="prop-example-icon">✦</span><span>Fazer isso sempre de forma orgânica.</span></div>
+                    </div>
+
+                    <div class="prop-goal">
+                      Objetivo: dar visibilidade inicial e começar a construir comunidade, sempre de forma orgânica.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="prop-card reveal">
+            <div class="prop-header" data-clickable="true">
+              <div class="prop-tier tier-2">⚡</div>
+              <div class="prop-info">
+                <div class="prop-tier-label">tier 2</div>
+                <div class="prop-title">Parceria de presença e ativação</div>
+                <div class="prop-sub">Um nível mais robusto para ampliar presença, engajamento e consistência de marca dentro da comunidade.</div>
+              </div>
+              <div class="prop-price">
+                <div class="prop-price-val">R$ 3k</div>
+                <div class="prop-price-label">+ itens para sorteio e premiação</div>
+              </div>
+              <svg class="prop-chevron" viewBox="0 0 24 24" fill="none">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+
+            <div class="prop-body">
+              <div class="prop-body-inner">
+                <div class="prop-content">
+                  <div class="prop-col">
+                    <div class="prop-section-title">o que entra</div>
+                    <div class="prop-items">
+                      <div class="prop-item"><span class="prop-item-dot"></span><span>Tudo do Tier 1.</span></div>
+                      <div class="prop-item"><span class="prop-item-dot"></span><span>Mais frequência de ativações dentro da comunidade.</span></div>
+                      <div class="prop-item"><span class="prop-item-dot"></span><span>Maior presença da Metanoia nas rotinas de conteúdo e campanhas da org.</span></div>
+                      <div class="prop-item"><span class="prop-item-dot"></span><span>Sorteios e premiações simbólicas em ações especiais.</span></div>
+                    </div>
+                  </div>
+
+                  <div class="prop-col">
+                    <div class="prop-section-title">resultado esperado</div>
+                    <div class="prop-examples">
+                      <div class="prop-example"><span class="prop-example-icon">✦</span><span>Mais presença de marca no dia a dia da comunidade.</span></div>
+                      <div class="prop-example"><span class="prop-example-icon">✦</span><span>Ativações com mais recorrência e percepção de valor.</span></div>
+                      <div class="prop-example"><span class="prop-example-icon">✦</span><span>Mais conexão entre marca, comunidade e criadores.</span></div>
+                    </div>
+
+                    <div class="prop-goal">
+                      Nível indicado para sair da visibilidade inicial e começar a consolidar presença de marca.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="prop-card reveal">
+            <div class="prop-header" data-clickable="true">
+              <div class="prop-tier tier-3">🏆</div>
+              <div class="prop-info">
+                <div class="prop-tier-label">tier 3</div>
+                <div class="prop-title">Parceria estratégica ampliada</div>
+                <div class="prop-sub">Pensada para aumentar o impacto da marca com ativações mais fortes, constância e presença mais integrada no ecossistema da org.</div>
+              </div>
+              <div class="prop-price">
+                <div class="prop-price-val">R$ 6k</div>
+                <div class="prop-price-label">+ itens para sorteio e premiação</div>
+              </div>
+              <svg class="prop-chevron" viewBox="0 0 24 24" fill="none">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+
+            <div class="prop-body">
+              <div class="prop-body-inner">
+                <div class="prop-content">
+                  <div class="prop-col">
+                    <div class="prop-section-title">o que entra</div>
+                    <div class="prop-items">
+                      <div class="prop-item"><span class="prop-item-dot"></span><span>Tudo dos tiers anteriores.</span></div>
+                      <div class="prop-item"><span class="prop-item-dot"></span><span>Campanhas e ativações com maior destaque visual e narrativo.</span></div>
+                      <div class="prop-item"><span class="prop-item-dot"></span><span>Presença mais forte da marca em ações de comunidade e competitivo.</span></div>
+                      <div class="prop-item"><span class="prop-item-dot"></span><span>Premiações e sorteios com maior força de percepção.</span></div>
+                    </div>
+                  </div>
+
+                  <div class="prop-col">
+                    <div class="prop-section-title">resultado esperado</div>
+                    <div class="prop-examples">
+                      <div class="prop-example"><span class="prop-example-icon">✦</span><span>Mais força de marca e lembrança dentro da comunidade.</span></div>
+                      <div class="prop-example"><span class="prop-example-icon">✦</span><span>Presença mais integrada em projetos relevantes.</span></div>
+                      <div class="prop-example"><span class="prop-example-icon">✦</span><span>Maior valor percebido nas ativações e campanhas.</span></div>
+                    </div>
+
+                    <div class="prop-goal">
+                      Nível ideal para quem quer presença mais marcante, recorrência e percepção mais forte dentro da comunidade.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="prop-card reveal">
+            <div class="prop-header" data-clickable="true">
+              <div class="prop-tier tier-4">💎</div>
+              <div class="prop-info">
+                <div class="prop-tier-label">tier 4</div>
+                <div class="prop-title">Parceria premium / nível máximo</div>
+                <div class="prop-sub">Modelo para ações de maior escala, com presença forte, ativações recorrentes e maior profundidade estratégica entre marca e comunidade.</div>
+              </div>
+              <div class="prop-price">
+                <div class="prop-price-val">R$ 10k</div>
+                <div class="prop-price-label">+ itens para sorteio e premiação</div>
+              </div>
+              <svg class="prop-chevron" viewBox="0 0 24 24" fill="none">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+
+            <div class="prop-body">
+              <div class="prop-body-inner">
+                <div class="prop-content">
+                  <div class="prop-col">
+                    <div class="prop-section-title">o que entra</div>
+                    <div class="prop-items">
+                      <div class="prop-item"><span class="prop-item-dot"></span><span>Tudo dos tiers anteriores.</span></div>
+                      <div class="prop-item"><span class="prop-item-dot"></span><span>Ativações especiais com maior escala e profundidade estratégica.</span></div>
+                      <div class="prop-item"><span class="prop-item-dot"></span><span>Presença premium em campanhas, comunidade e entregas especiais.</span></div>
+                      <div class="prop-item"><span class="prop-item-dot"></span><span>Mais espaço para iniciativas customizadas dentro do ecossistema da org.</span></div>
+                    </div>
+                  </div>
+
+                  <div class="prop-col">
+                    <div class="prop-section-title">resultado esperado</div>
+                    <div class="prop-examples">
+                      <div class="prop-example"><span class="prop-example-icon">✦</span><span>Marca presente com alto impacto nas principais frentes da parceria.</span></div>
+                      <div class="prop-example"><span class="prop-example-icon">✦</span><span>Mais consistência, valor percebido e força de comunidade.</span></div>
+                      <div class="prop-example"><span class="prop-example-icon">✦</span><span>Capacidade de desenvolver projetos mais exclusivos e memoráveis.</span></div>
+                    </div>
+
+                    <div class="prop-goal">
+                      Nível máximo para transformar a parceria em uma presença realmente forte, recorrente e estratégica dentro do projeto.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-eye">eventos avulsos</div>
+          <h2 class="section-title">Curral Cup powered by Metanoia</h2>
+          <p class="section-desc">
+            Uma proposta de evento avulso com foco em comunidade, conteúdo, transmissão e presença de marca de forma orgânica durante toda a experiência.
+          </p>
+        </div>
+
+        <div class="event-card reveal">
+          <h3>Curral Cup powered by Metanoia ou Metanoia Curral Cup</h3>
+          <div class="event-price">R$ 10k</div>
+
+          <div class="bullet-list">
+            <div class="bullet-item"><span class="bullet-dot"></span><span>40 criadores de conteúdo</span></div>
+            <div class="bullet-item"><span class="bullet-dot"></span><span>Transmissão tier 1 com caster e comentarista profissional</span></div>
+            <div class="bullet-item"><span class="bullet-dot"></span><span>HUD com logo da Metanoia</span></div>
+            <div class="bullet-item"><span class="bullet-dot"></span><span>Inserção de conteúdos da Metanoia durante todo o evento</span></div>
+            <div class="bullet-item"><span class="bullet-dot"></span><span>Sorteios durante a transmissão e engajamento orgânico</span></div>
+            <div class="bullet-item"><span class="bullet-dot"></span><span>Highlights nas redes e vídeos dos jogos no YouTube</span></div>
+            <div class="bullet-item"><span class="bullet-dot"></span><span>Logos e nomes dos times personalizados com a Metanoia e curralzinho</span></div>
+            <div class="bullet-item"><span class="bullet-dot"></span><span>Entrevistas antes e depois dos jogos</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contato">
+      <div class="container">
+        <div class="contato-box reveal">
+          <h2 class="contato-title">Vamos desenhar isso da forma certa?</h2>
+          <p class="contato-desc">
+            Se a visão fizer sentido pra vocês, o próximo passo é alinhar o formato ideal da parceria,
+            entender o nível de profundidade que faz sentido pros dois lados e transformar isso em algo realmente forte.
+          </p>
+
+          <div class="hero-cta">
+            <a class="btn-primary magnetic" href="https://wa.me/61452577383" target="_blank" rel="noopener noreferrer">falar no whatsapp</a>
+            <a class="btn-secondary magnetic" href="#topo">voltar ao topo</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-wrap">
+        <div class="footer-brand">
+          <img class="curral-logo" alt="curralzinho">
+          <div class="footer-brand-text">
+            <span class="curral-white">curral</span><span class="curral-blue">zinho</span> <em>x</em> Metanoia
+          </div>
+        </div>
+
+        <div class="footer-right">documento comercial · 2026</div>
+      </div>
+    </footer>
+
+    <a href="#contato" class="float-cta magnetic" id="floatCta">falar da parceria</a>
+  </div>
+
+  <script>
+    const CURRAL_LOGO = "data:image/png;base64,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";
+
+    document.querySelectorAll('.curral-logo').forEach(img => {
+      img.src = CURRAL_LOGO;
+    });
+
+    // splash
+    (function(){
+      const splash = document.getElementById('splash');
+      const site = document.getElementById('site');
+      const bar = document.getElementById('spBar');
+      const msg = document.getElementById('spMsg');
+
+      const messages = [
+        'inicializando proposta',
+        'carregando identidade visual',
+        'sincronizando parceria',
+        'preparando experiência',
+        'quase pronto'
+      ];
+
+      let progress = 0;
+      let msgIndex = 0;
+
+      const interval = setInterval(() => {
+        progress += Math.random() * 18;
+        if(progress > 100) progress = 100;
+        bar.style.width = progress + '%';
+
+        const nextIndex = Math.min(messages.length - 1, Math.floor(progress / 25));
+        if(nextIndex !== msgIndex){
+          msgIndex = nextIndex;
+          msg.textContent = messages[msgIndex];
+        }
+
+        if(progress >= 100){
+          clearInterval(interval);
+          setTimeout(() => {
+            splash.classList.add('out');
+            site.style.display = 'block';
+            requestAnimationFrame(() => site.classList.add('on'));
+          }, 250);
+        }
+      }, 140);
+    })();
+
+    // accordion multiple open
+    (function(){
+      const cards = document.querySelectorAll('.prop-card');
+      cards.forEach(card => {
+        const header = card.querySelector('.prop-header');
+        header.addEventListener('click', () => {
+          card.classList.toggle('open');
+        });
+      });
+    })();
+
+    // reveal
+    (function(){
+      const items = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            entry.target.classList.add('in');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      items.forEach(item => {
+        if(!item.classList.contains('in')){
+          observer.observe(item);
+        }
+      });
+    })();
+
+    // hero parallax glow
+    (function(){
+      const glow = document.getElementById('heroGlow');
+      const hero = document.querySelector('.hero');
+      if(!glow || !hero) return;
+
+      hero.addEventListener('mousemove', (e) => {
+        const rect = hero.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        glow.style.transform = `translate(calc(-50% + ${x * 18}px), calc(-50% + ${y * 18}px))`;
+      });
+
+      hero.addEventListener('mouseleave', () => {
+        glow.style.transform = 'translate(-50%, -50%)';
+      });
+    })();
+
+    // button light
+    (function(){
+      const buttons = document.querySelectorAll('.btn-primary, .btn-secondary, .float-cta');
+
+      buttons.forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+          const rect = btn.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+
+          btn.style.backgroundImage = `
+            radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,.16), transparent 28%),
+            ${btn.classList.contains('btn-primary') || btn.classList.contains('float-cta')
+              ? 'linear-gradient(135deg, var(--azul), rgba(0,180,255,.9))'
+              : 'linear-gradient(135deg, rgba(43,111,212,.08), rgba(43,111,212,.08))'
+            }
+          `;
+        });
+
+        btn.addEventListener('mouseleave', () => {
+          if(btn.classList.contains('btn-primary') || btn.classList.contains('float-cta')){
+            btn.style.backgroundImage = 'linear-gradient(135deg, var(--azul), rgba(0,180,255,.9))';
+          } else {
+            btn.style.backgroundImage = 'none';
+          }
+        });
+      });
+    })();
+
+    // float cta
+    (function(){
+      const cta = document.getElementById('floatCta');
+      function handleScroll(){
+        if(window.scrollY < 320){
+          cta.classList.add('hide');
+        } else {
+          cta.classList.remove('hide');
+        }
+      }
+      handleScroll();
+      window.addEventListener('scroll', handleScroll, { passive:true });
+    })();
+
+    // nav bg
+    (function(){
+      const nav = document.querySelector('nav');
+      function handleNav(){
+        if(window.scrollY > 40){
+          nav.style.background = 'rgba(8,12,22,0.88)';
+          nav.style.borderBottom = '1px solid rgba(43,111,212,0.24)';
+        } else {
+          nav.style.background = 'rgba(8,12,22,0.72)';
+          nav.style.borderBottom = '1px solid rgba(43,111,212,0.18)';
+        }
+      }
+      handleNav();
+      window.addEventListener('scroll', handleNav, { passive:true });
+    })();
+
+    // smooth anchors with offset
+    (function(){
+      const anchors = document.querySelectorAll('a[href^="#"]');
+      anchors.forEach(anchor => {
+        anchor.addEventListener('click', function(e){
+          const id = this.getAttribute('href');
+          const target = document.querySelector(id);
+          if(!target) return;
+          e.preventDefault();
+
+          const offset = 74;
+          const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+
+          window.scrollTo({
+            top,
+            behavior:'smooth'
+          });
+        });
+      });
+    })();
+
+    // custom cursor
+    (function(){
+      const dot = document.getElementById('cursorDot');
+      const ring = document.getElementById('cursorRing');
+
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
+      let ringX = mouseX;
+      let ringY = mouseY;
+
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        dot.style.left = mouseX + 'px';
+        dot.style.top = mouseY + 'px';
+      });
+
+      function animateRing(){
+        ringX += (mouseX - ringX) * 0.18;
+        ringY += (mouseY - ringY) * 0.18;
+        ring.style.left = ringX + 'px';
+        ring.style.top = ringY + 'px';
+        requestAnimationFrame(animateRing);
+      }
+      animateRing();
+
+      const hoverables = document.querySelectorAll('a, button, .prop-header, .magnetic');
+      hoverables.forEach(el => {
+        el.addEventListener('mouseenter', () => ring.classList.add('active'));
+        el.addEventListener('mouseleave', () => ring.classList.remove('active'));
+      });
+
+      window.addEventListener('mousedown', () => {
+        dot.classList.add('clicking');
+      });
+
+      window.addEventListener('mouseup', () => {
+        dot.classList.remove('clicking');
+      });
+    })();
+  </script>
+</body>
+</html>
